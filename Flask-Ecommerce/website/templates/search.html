@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block title %} Search {% endblock %}
+
+
+{% block body %}
+
+{% if items | length < 1 %}
+<h3 style="color: white;">No Items Match your Search query</h3>
+
+{% else %}
+
+
+<div class="row mt-4">
+    <div class="col-12">
+        <h2 class="mb-3">Featured Products</h2>
+    </div>
+    {% for item in items %}
+    <div class="col-md-3 col-6 mb-3">
+        <div class="card">
+            <div class="img-container" style="width: 360px; height: 200px;">
+                <img src="{{ item.product_picture }}" class="card-img-top img-fit" alt="Product 1">
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">{{ item.product_name }}</h5>
+                <p class="card-text">$ {{ item.current_price }}</p>
+                <strike><p style="color: gray; font-size: smaller;">$ {{ item.previous_price}}</p></strike>
+                <div class="row" style="float: right; display: block;">
+                    <p>{{ item.in_stock }} Items Left</p>
+                </div>
+                <div class=" hover-btn" style="background-color: rgb(0, 119, 255); border-radius: 3ch;">
+                    <a style="color: black;text-decoration: none;" href="/add-to-cart/{{ item.id }}"><b>Buy Now</b></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+    
+</div>
+
+{% endif %}
+
+{% endblock %}
